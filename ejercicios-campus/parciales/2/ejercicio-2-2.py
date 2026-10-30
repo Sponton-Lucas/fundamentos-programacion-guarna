@@ -13,13 +13,54 @@ prohibidos_2 = ["huevo", "nueces"]
 #Testea la funcion con dos casos usando doctest, con 2 listas de prohibidos distintas a las del ejemplo.
 
 def elegir_comidas(comidas, prohibidos):
+    """
+    >>> comidas1 = [
+    ...     ["milanesa", "bife", "pan rallado", "huevo"],
+    ...     ["ravioles", "harina", "ricota"],
+    ...     ["pizza", "queso", "aceitunas"],
+    ...     ["hamburguesa", "carne", "pan"]
+    ... ]
+
+    >>> comidas2 = [
+    ...     ["ensalada", "lechuga", "tomate"],
+    ...     ["tarta", "harina", "espinaca"],
+    ...     ["empanadas", "carne", "cebolla"],
+    ...     ["pastas", "harina", "huevo"]
+    ... ]
+
+    >>> elegir_comidas(comidas1, ["huevo", "aceitunas"])
+    ['ravioles', 'hamburguesa']
+
+    >>> elegir_comidas(comidas1, ["harina", "carne"])
+    ['milanesa', 'pizza']
+
+    >>> elegir_comidas(comidas2, ["tomate", "huevo"])
+    ['tarta', 'empanadas']
+
+    >>> elegir_comidas(comidas2, ["cebolla", "espinaca"])
+    ['ensalada', 'pastas']
+    """
+
     permitidas = []
-    
-    for ingrediente in prohibidos:
-        for comida in comidas:
-            if ingrediente not in comidas:
-                permitidas.append(comida[0])
-    print(permitidas)
+
+    for comida in comidas:
+
+        nombre = comida[0]
+        ingredientes = comida[1:]
+
+        valida = True
+
+        for ingrediente in ingredientes:
+
+            if ingrediente in prohibidos:
+                valida = False
+
+        if valida:
+            permitidas.append(nombre)
+
+    return permitidas
 
 
-elegir_comidas(comidas, prohibidos_1)
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
